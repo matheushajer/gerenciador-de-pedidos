@@ -54,7 +54,7 @@ public class ClienteAdapter {
 
         return new DadosCriacaoClienteDTO(
                 clienteEntity.getNome(),
-                clienteEntity.getCpf(),
+                censurarCPF(clienteEntity.getCpf()),
                 clienteEntity.getEmail(),
                 telefoneAdapter.converterParaListaDeDTO(clienteEntity.getTelefoneEntity()),
                 enderecoAdapter.converterParaListaDeDTO(clienteEntity.getEnderecoEntity())
@@ -62,5 +62,11 @@ public class ClienteAdapter {
 
     }
 
+    private String censurarCPF(String cpf) {
+
+        // Aplica a censura no CPF
+        return"***-***-**" + cpf.substring(8);
+
+    }
 
 }
