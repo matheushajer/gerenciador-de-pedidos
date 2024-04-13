@@ -1,4 +1,4 @@
-package br.com.fiap.gerenciadorDepedidos.produtos.useCases.produto;
+package br.com.fiap.gerenciadorDepedidos.produtos.useCases;
 
 import br.com.fiap.gerenciadorDepedidos.produtos.adapters.ProdutoAdapter;
 import br.com.fiap.gerenciadorDepedidos.produtos.entities.ProdutoEntity;
@@ -21,6 +21,12 @@ public class CriarProdutoUseCase {
     @Autowired
     ProdutoRepository produtoRepository;
 
+    /**
+     * Método para efetuar a criação de um novo produto.
+     *
+     * @param dadosCriacaoProdutoDTO Objeto com os dados usados para criação do produto.
+     * @return DadosCriacaoProdutoDTO Objeto com os dados criados, após passarem pelas validações.
+     */
     public DadosCriacaoProdutoDTO criarProduto(DadosCriacaoProdutoDTO dadosCriacaoProdutoDTO) {
 
         ProdutoEntity produtoEntity = produtoAdapter.converterParaEntity(dadosCriacaoProdutoDTO);

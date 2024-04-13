@@ -32,6 +32,9 @@ public class ProdutoEntity {
     // Construtores
     // **************
 
+    public ProdutoEntity() {
+    }
+
     public ProdutoEntity(String nome, String descricao, BigDecimal preco, Integer quantidade,
                          CategoriaProduto categoria, Integer altura, Integer largura, Integer comprimento, Double peso) {
         this.nome = nome;
