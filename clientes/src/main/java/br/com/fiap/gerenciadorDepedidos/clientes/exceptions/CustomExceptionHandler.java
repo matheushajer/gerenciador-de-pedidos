@@ -1,5 +1,6 @@
 package br.com.fiap.gerenciadorDepedidos.clientes.exceptions;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -34,6 +35,18 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<CustomErrorResponse> handleIllegalArgumentExceptions(IllegalArgumentException ex) {
+
+        String mensagem = ex.getMessage();
+        LocalDateTime timestamp = LocalDateTime.now();
+        int status = HttpStatus.INTERNAL_SERVER_ERROR.value();
+
+        CustomErrorResponse errorResponse = new CustomErrorResponse(timestamp, mensagem, status);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<CustomErrorResponse> handleEntityNotFoundExceptions(EntityNotFoundException ex) {
 
         String mensagem = ex.getMessage();
         LocalDateTime timestamp = LocalDateTime.now();
