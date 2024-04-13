@@ -67,6 +67,13 @@ public class EnderecoAdapter {
 
     }
 
+    /**
+     * Método para converter uma lista de DadosCriacaoEnderecoDTO para uma lista de EnderecoEntity.
+     *
+     * @param dadosCriacaoEnderecoDTOList Lista de objetos com os dados a serem convertidos.
+     * @param clienteEntity               Objeto com os dados do cliente para relacionamento.
+     * @return enderecoEntityList Lista de objetos convertidos.
+     */
     public List<EnderecoEntity> converterParaListaDeEnderecos(
             List<DadosCriacaoEnderecoDTO> dadosCriacaoEnderecoDTOList, ClienteEntity clienteEntity) {
 

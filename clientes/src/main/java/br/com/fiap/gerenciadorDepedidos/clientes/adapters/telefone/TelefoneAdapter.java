@@ -2,7 +2,6 @@ package br.com.fiap.gerenciadorDepedidos.clientes.adapters.telefone;
 
 import br.com.fiap.gerenciadorDepedidos.clientes.entities.ClienteEntity;
 import br.com.fiap.gerenciadorDepedidos.clientes.entities.TelefoneEntity;
-import br.com.fiap.gerenciadorDepedidos.clientes.records.endereco.DadosCriacaoEnderecoDTO;
 import br.com.fiap.gerenciadorDepedidos.clientes.records.telefone.DadosCriacaoTelefoneDTO;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +58,13 @@ public class TelefoneAdapter {
 
     }
 
+    /**
+     * Método para converter uma lista de dadosCriacaoTelefoneDTO para uma lista de TelefoneEntity.
+     *
+     * @param dadosCriacaoTelefoneDTOList Lista de objetos com os dados a serem convertidos.
+     * @param clienteEntity Objeto com os dados do cliente para relacionamento.
+     * @return telefoneEntityList Lista de objetos convertidos.
+     */
     public List<TelefoneEntity> converterParaListaDeTelefones(
             List<DadosCriacaoTelefoneDTO> dadosCriacaoTelefoneDTOList, ClienteEntity clienteEntity) {
 

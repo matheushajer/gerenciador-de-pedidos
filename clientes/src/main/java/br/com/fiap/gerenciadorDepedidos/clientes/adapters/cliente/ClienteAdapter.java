@@ -62,10 +62,16 @@ public class ClienteAdapter {
 
     }
 
+    /**
+     * Método auxiliar para censurar os dados do CPF.
+     *
+     * @param cpf CPF que será censurado.
+     * @return CPF censurado, na seguinte formatação | ***-***-**6-76
+     */
     private String censurarCPF(String cpf) {
 
         // Aplica a censura no CPF
-        return"***-***-**" + cpf.substring(8);
+        return "***-***-**" + cpf.substring(8);
 
     }
 
