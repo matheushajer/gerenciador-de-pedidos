@@ -3,6 +3,7 @@ package br.com.fiap.gerenciadorDepedidos.produtos.controllers;
 import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosCriacaoProdutoDTO;
 import br.com.fiap.gerenciadorDepedidos.produtos.useCases.produto.CriarProdutoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class ProdutoController {
     public ResponseEntity<DadosCriacaoProdutoDTO> criarProduto(
             @RequestBody @Validated DadosCriacaoProdutoDTO dadosCriacaoProdutoDTO) {
 
-        return ResponseEntity.ok(criarProdutoUseCase.criarProduto(dadosCriacaoProdutoDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(criarProdutoUseCase.criarProduto(dadosCriacaoProdutoDTO));
 
     }
 
