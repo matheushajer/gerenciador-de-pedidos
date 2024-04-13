@@ -3,6 +3,7 @@ package br.com.fiap.gerenciadorDepedidos.clientes.controllers.cliente;
 import br.com.fiap.gerenciadorDepedidos.clientes.records.cliente.DadosCriacaoClienteDTO;
 import br.com.fiap.gerenciadorDepedidos.clientes.useCases.cliente.CriarClienteUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class ClienteController {
     public ResponseEntity<DadosCriacaoClienteDTO> criarCiente(
             @RequestBody @Validated DadosCriacaoClienteDTO dadosCriacaoClienteDTO) {
 
-        return ResponseEntity.ok(criarClienteUseCase.criarCliente(dadosCriacaoClienteDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(criarClienteUseCase.criarCliente(dadosCriacaoClienteDTO));
 
     }
 
