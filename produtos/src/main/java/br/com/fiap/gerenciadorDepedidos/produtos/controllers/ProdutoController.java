@@ -1,6 +1,9 @@
 package br.com.fiap.gerenciadorDepedidos.produtos.controllers;
 
+import br.com.fiap.gerenciadorDepedidos.produtos.entities.ProdutoEntity;
+import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosAtualizacaoProdutoDTO;
 import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosCriacaoProdutoDTO;
+import br.com.fiap.gerenciadorDepedidos.produtos.useCases.AtualizarDadosProdutoUseCase;
 import br.com.fiap.gerenciadorDepedidos.produtos.useCases.CriarProdutoUseCase;
 import br.com.fiap.gerenciadorDepedidos.produtos.useCases.DeletarProdutoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,8 @@ public class ProdutoController {
     CriarProdutoUseCase criarProdutoUseCase;
     @Autowired
     DeletarProdutoUseCase deletarProdutoUseCase;
+    @Autowired
+    AtualizarDadosProdutoUseCase atualizarDadosProdutoUseCase;
 
     @PostMapping("/criar-produto")
     public ResponseEntity<DadosCriacaoProdutoDTO> criarProduto(
@@ -33,6 +38,14 @@ public class ProdutoController {
     public void deletarProduto(@PathVariable Long produto_id) {
 
         deletarProdutoUseCase.deletarProduto(produto_id);
+
+    }
+
+    @PatchMapping("/atualizar-produto/{produto_id}")
+    public ResponseEntity<ProdutoEntity> atualizaDadosProduto(
+            @PathVariable Long produto_id, @RequestBody @Validated DadosAtualizacaoProdutoDTO dadosAtualizacaoProdutoDTO) {
+
+        return ResponseEntity.ok(atualizarDadosProdutoUseCase.atualizarDadosProduto(produto_id, dadosAtualizacaoProdutoDTO));
 
     }
 
