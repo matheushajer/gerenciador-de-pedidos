@@ -1,0 +1,12 @@
+package br.com.fiap.gerenciadorDepedidos.produtos.entities.enuns;
+
+public enum CategoriaProduto {
+    AUDIO,
+    BRINQUEDOS,
+    DECORACAO,
+    ELETRODOMESTICOS,
+    INFORMATICA,
+    LIVROS,
+    GAMES,
+    FERRAMENTAS
+}
