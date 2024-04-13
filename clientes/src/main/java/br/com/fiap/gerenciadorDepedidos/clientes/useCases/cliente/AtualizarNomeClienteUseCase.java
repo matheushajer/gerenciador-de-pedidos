@@ -11,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * Classe para representar o caso de uso de atualizar
+ * o nome de um cliente.
+ */
 @Service
 @Transactional
 public class AtualizarNomeClienteUseCase {
@@ -18,11 +22,19 @@ public class AtualizarNomeClienteUseCase {
     @Autowired
     ClienteRepository clienteRepository;
 
-    public DadosRetornoAtualizacaoNomeClienteDTO atualizarNomeCliente(Long cliente_id, DadosAtualizarNomeClienteDTO dadosAtualizarNomeClienteDTO){
+    /**
+     * Método para efetuar a atualização do nome de um cliente já cadastrado.
+     *
+     * @param cliente_id                   ID do cliente a ter o nome atualizado.
+     * @param dadosAtualizarNomeClienteDTO Objeto com os dados para atualização do nome do cliente.
+     * @return DadosRetornoAtualizacaoNomeClienteDTO Objeto com os dados da atualização efetuada.
+     * @throws EntityNotFoundException Exception retornada caso o cliente_id não esteja cadastrado no banco.
+     */
+    public DadosRetornoAtualizacaoNomeClienteDTO atualizarNomeCliente(Long cliente_id, DadosAtualizarNomeClienteDTO dadosAtualizarNomeClienteDTO) {
 
         Optional<ClienteEntity> clienteEntity = clienteRepository.findById(cliente_id);
 
-        if (clienteEntity.isPresent()){
+        if (clienteEntity.isPresent()) {
             ClienteEntity cliente = clienteEntity.get();
 
             String nomeAntigoCliente = cliente.getNome();
@@ -33,7 +45,7 @@ public class AtualizarNomeClienteUseCase {
 
             return new DadosRetornoAtualizacaoNomeClienteDTO(nomeAntigoCliente, dadosAtualizarNomeClienteDTO.nomeAtualizado());
 
-        }else{
+        } else {
             throw new EntityNotFoundException("Cliente não encontrado!");
         }
 
