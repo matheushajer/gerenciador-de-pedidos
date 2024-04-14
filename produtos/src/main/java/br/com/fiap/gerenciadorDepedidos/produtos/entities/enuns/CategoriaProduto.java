@@ -8,5 +8,9 @@ public enum CategoriaProduto {
     INFORMATICA,
     LIVROS,
     GAMES,
-    FERRAMENTAS
+    FERRAMENTAS;
+
+    public static CategoriaProduto fromString(String categoria) {
+        return CategoriaProduto.valueOf(categoria.toUpperCase());
+    }
 }

@@ -37,6 +37,8 @@ public class ProdutoController {
     DadosProdutoParaPedidoUseCase dadosProdutoParaPedidoUseCase;
     @Autowired
     DadosProdutoParaEntregaUseCase dadosProdutoParaEntregaUseCase;
+    @Autowired
+    ListarProdutosPelaCategoriaUseCase listarProdutosPelaCategoriaUseCase;
 
     @GetMapping
     public Page<ProdutoEntity> listarTodosProdutosPaginado(Pageable pageable) {
@@ -54,6 +56,13 @@ public class ProdutoController {
     public Page<ProdutoEntity> listarProdutosPeloNome(@PathVariable String nomeProduto, Pageable pageable) {
 
         return listarProdutosPeloNomeUseCase.listarProdutosPeloNome(nomeProduto, pageable);
+
+    }
+
+    @GetMapping("/listar-por-categoria/{nomeCategoria}")
+    public Page<ProdutoEntity> listarProdutosPelaCategoria(@PathVariable String nomeCategoria, Pageable pageable) {
+
+        return listarProdutosPelaCategoriaUseCase.listarProdutosPelaCategoria(nomeCategoria, pageable);
 
     }
 
