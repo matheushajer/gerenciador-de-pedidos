@@ -2,6 +2,7 @@ package br.com.fiap.gerenciadorDepedidos.produtos.adapters;
 
 import br.com.fiap.gerenciadorDepedidos.produtos.entities.ProdutoEntity;
 import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosCriacaoProdutoDTO;
+import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosProdutoParaPedidoDTO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -57,5 +58,19 @@ public class ProdutoAdapter {
 
     }
 
+    /**
+     * Método para converter os dados de um ProdutoEntity para um objeto
+     * do tipo DadosProdutoParaPedidoDTO.
+     *
+     * @param produtoEntity Objeto com os dados do produto vindo do banco.
+     * @return DadosProdutoParaPedidoDTO DTO com os dados necessarios para o microserviço de Pedidos
+     */
+    public DadosProdutoParaPedidoDTO converterParaDadosPedidoDTO(ProdutoEntity produtoEntity) {
 
+        return new DadosProdutoParaPedidoDTO(
+                produtoEntity.getNome(),
+                produtoEntity.getPreco()
+        );
+
+    }
 }
