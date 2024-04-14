@@ -6,7 +6,10 @@ import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosCriacaoProdutoDTO;
 import br.com.fiap.gerenciadorDepedidos.produtos.useCases.AtualizarDadosProdutoUseCase;
 import br.com.fiap.gerenciadorDepedidos.produtos.useCases.CriarProdutoUseCase;
 import br.com.fiap.gerenciadorDepedidos.produtos.useCases.DeletarProdutoUseCase;
+import br.com.fiap.gerenciadorDepedidos.produtos.useCases.ListarTodosProdutosPaginadoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,6 +28,15 @@ public class ProdutoController {
     DeletarProdutoUseCase deletarProdutoUseCase;
     @Autowired
     AtualizarDadosProdutoUseCase atualizarDadosProdutoUseCase;
+    @Autowired
+    ListarTodosProdutosPaginadoUseCase listarTodosProdutosPaginado;
+
+    @GetMapping
+    public Page<ProdutoEntity> listarTodosProdutosPaginado(Pageable pageable) {
+
+        return listarTodosProdutosPaginado.listarTodosProdutosPaginado(pageable);
+
+    }
 
     @PostMapping("/criar-produto")
     public ResponseEntity<DadosCriacaoProdutoDTO> criarProduto(
