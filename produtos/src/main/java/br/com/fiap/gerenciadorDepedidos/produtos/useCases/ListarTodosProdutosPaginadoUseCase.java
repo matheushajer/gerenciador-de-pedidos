@@ -17,6 +17,13 @@ public class ListarTodosProdutosPaginadoUseCase {
     @Autowired
     ProdutoRepository produtoRepository;
 
+    /**
+     * Método para listar todos os produtos cadastrados de
+     * forma paginada.
+     *
+     * @param pageable Objeto parametro para a paginação.
+     * @return Page<ProdutoEntity> Objeto com os dados a serem exibidos paginados.
+     */
     public Page<ProdutoEntity> listarTodosProdutosPaginado(Pageable pageable) {
 
         return produtoRepository.findAll(pageable);
