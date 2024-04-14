@@ -29,6 +29,8 @@ public class ProdutoController {
     ListarTodosProdutosPaginadoUseCase listarTodosProdutosPaginado;
     @Autowired
     BuscarProdutoPorIdUseCase buscarProdutoPorIdUseCase;
+    @Autowired
+    ListarProdutosPeloNomeUseCase listarProdutosPeloNomeUseCase;
 
     @GetMapping
     public Page<ProdutoEntity> listarTodosProdutosPaginado(Pageable pageable) {
@@ -40,6 +42,13 @@ public class ProdutoController {
     @GetMapping("/{produto_id}")
     public ResponseEntity<ProdutoEntity> buscarProdutoPorId(@PathVariable Long produto_id) {
         return ResponseEntity.ok(buscarProdutoPorIdUseCase.buscarProdutoPorId(produto_id));
+    }
+
+    @GetMapping("/listar-por-nome/{nomeProduto}")
+    public Page<ProdutoEntity> listarProdutosPeloNome(@PathVariable String nomeProduto, Pageable pageable) {
+
+        return listarProdutosPeloNomeUseCase.listarProdutosPeloNome(nomeProduto, pageable);
+
     }
 
     @PostMapping("/criar-produto")
