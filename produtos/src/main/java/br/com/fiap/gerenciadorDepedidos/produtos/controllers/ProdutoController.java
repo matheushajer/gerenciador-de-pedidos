@@ -3,6 +3,7 @@ package br.com.fiap.gerenciadorDepedidos.produtos.controllers;
 import br.com.fiap.gerenciadorDepedidos.produtos.entities.ProdutoEntity;
 import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosAtualizacaoProdutoDTO;
 import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosCriacaoProdutoDTO;
+import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosProdutoParaEntregaDTO;
 import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosProdutoParaPedidoDTO;
 import br.com.fiap.gerenciadorDepedidos.produtos.useCases.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class ProdutoController {
     ListarProdutosPeloNomeUseCase listarProdutosPeloNomeUseCase;
     @Autowired
     DadosProdutoParaPedidoUseCase dadosProdutoParaPedidoUseCase;
+    @Autowired
+    DadosProdutoParaEntregaUseCase dadosProdutoParaEntregaUseCase;
 
     @GetMapping
     public Page<ProdutoEntity> listarTodosProdutosPaginado(Pageable pageable) {
@@ -58,6 +61,13 @@ public class ProdutoController {
     public ResponseEntity<DadosProdutoParaPedidoDTO> dadosProdutoParaPedido(@PathVariable Long produto_id) {
 
         return ResponseEntity.ok(dadosProdutoParaPedidoUseCase.buscarDadosDoProdutoParaPedidoService(produto_id));
+
+    }
+
+    @GetMapping("/dados-entrega/{produto_id}")
+    public ResponseEntity<DadosProdutoParaEntregaDTO> dadosProdutoParaEntrega(@PathVariable Long produto_id) {
+
+        return ResponseEntity.ok(dadosProdutoParaEntregaUseCase.buscarDadosProdutoParaEntrega(produto_id));
 
     }
 
