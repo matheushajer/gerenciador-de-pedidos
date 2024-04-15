@@ -2,6 +2,8 @@ package br.com.fiap.gerenciadorDepedidos.clientes.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * Classe para representar a Entidade Telefone
@@ -21,6 +23,7 @@ public class TelefoneEntity {
     private boolean isTelefonePrincial;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "cliente_id")
     private ClienteEntity clienteEntity;
 

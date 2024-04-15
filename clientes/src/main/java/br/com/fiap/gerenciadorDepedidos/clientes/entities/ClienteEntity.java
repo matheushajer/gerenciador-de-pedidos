@@ -2,6 +2,7 @@ package br.com.fiap.gerenciadorDepedidos.clientes.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,8 @@ public class ClienteEntity {
     private String cpf;
     private String email;
 
-    @OneToMany(mappedBy = "clienteEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER,mappedBy="clienteEntity", orphanRemoval=true)
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private List<TelefoneEntity> telefoneEntity;
 
     @OneToMany(mappedBy = "clienteEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
