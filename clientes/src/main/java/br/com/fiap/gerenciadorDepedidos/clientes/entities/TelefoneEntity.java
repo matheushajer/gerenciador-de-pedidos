@@ -38,4 +38,11 @@ public class TelefoneEntity {
         this.isTelefonePrincial = telefonePrincipal;
         this.clienteEntity = clienteEntity;
     }
+
+    public TelefoneEntity(int ddi, int ddd, int numero, ClienteEntity clienteEntity) {
+        this.ddi = ddi;
+        this.ddd = ddd;
+        this.numero = numero;
+        this.clienteEntity = clienteEntity;
+    }
 }
