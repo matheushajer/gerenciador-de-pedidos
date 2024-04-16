@@ -1,16 +1,16 @@
 package br.com.fiap.gerenciadorDepedidos.clientes.useCases.telefone;
 
 import br.com.fiap.gerenciadorDepedidos.clientes.repositories.TelefoneRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class DeletarTelefoneClienteUseCase {
 
-    @Autowired
-    private TelefoneRepository telefoneRepository;
+    private final TelefoneRepository telefoneRepository;
 
 
     /**

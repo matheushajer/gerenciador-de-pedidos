@@ -6,20 +6,19 @@ import br.com.fiap.gerenciadorDepedidos.clientes.records.telefone.DadosAtualizar
 import br.com.fiap.gerenciadorDepedidos.clientes.repositories.ClienteRepository;
 import br.com.fiap.gerenciadorDepedidos.clientes.repositories.TelefoneRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CriarTelefoneClienteUseCase {
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+    private final ClienteRepository clienteRepository;
 
-    @Autowired
-    private TelefoneRepository telefoneRepository;
+    private final TelefoneRepository telefoneRepository;
 
     /**
      * Adicionando telefone no cadastro do cliente

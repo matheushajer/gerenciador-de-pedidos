@@ -57,4 +57,24 @@ public class EnderecoEntity {
         this.clienteEntity = clienteEntity;
     }
 
+    public EnderecoEntity(
+            String cep,
+            String logradouro,
+            String numero,
+            String complemento,
+            String bairro,
+            String cidade,
+            String uf,
+            ClienteEntity clienteEntity) {
+
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.uf = uf;
+        this.clienteEntity = clienteEntity;
+    }
+
 }

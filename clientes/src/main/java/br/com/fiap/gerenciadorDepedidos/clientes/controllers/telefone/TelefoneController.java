@@ -5,7 +5,7 @@ import br.com.fiap.gerenciadorDepedidos.clientes.useCases.telefone.AtualizarTele
 import br.com.fiap.gerenciadorDepedidos.clientes.useCases.telefone.CriarTelefoneClienteUseCase;
 import br.com.fiap.gerenciadorDepedidos.clientes.useCases.telefone.DeletarTelefoneClienteUseCase;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,16 +13,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/telefones")
+@RequiredArgsConstructor
 public class TelefoneController {
 
-    @Autowired
-    private CriarTelefoneClienteUseCase criarTelefoneClienteUseCase;
+    private final CriarTelefoneClienteUseCase criarTelefoneClienteUseCase;
 
-    @Autowired
-    private DeletarTelefoneClienteUseCase deletarTelefoneClienteUseCase;
+    private final DeletarTelefoneClienteUseCase deletarTelefoneClienteUseCase;
 
-    @Autowired
-    private AtualizarTelefonePrincipalClienteUseCase atualizarTelefonePrincipalClienteUseCase;
+    private final AtualizarTelefonePrincipalClienteUseCase atualizarTelefonePrincipalClienteUseCase;
 
     @PostMapping("{clientId}/adicionar-telefone")
     private ResponseEntity<String> criarTelefoneCliente(@PathVariable Long clientId, @RequestBody @Valid List<DadosAtualizarTelefoneDTO> atualizarTelefones) {

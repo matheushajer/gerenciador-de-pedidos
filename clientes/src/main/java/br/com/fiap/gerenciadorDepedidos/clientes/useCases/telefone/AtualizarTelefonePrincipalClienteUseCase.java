@@ -3,14 +3,14 @@ package br.com.fiap.gerenciadorDepedidos.clientes.useCases.telefone;
 import br.com.fiap.gerenciadorDepedidos.clientes.entities.TelefoneEntity;
 import br.com.fiap.gerenciadorDepedidos.clientes.records.telefone.DadosAtualizarTelefoneDTO;
 import br.com.fiap.gerenciadorDepedidos.clientes.repositories.TelefoneRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AtualizarTelefonePrincipalClienteUseCase {
 
-    @Autowired
-    private TelefoneRepository telefoneRepository;
+    private final TelefoneRepository telefoneRepository;
 
 
     /**
