@@ -48,4 +48,11 @@ public class TelefoneEntity {
         this.numero = numero;
         this.clienteEntity = clienteEntity;
     }
+
+    public TelefoneEntity(int ddi, int ddd, int numero) {
+        this.ddi = ddi;
+        this.ddd = ddd;
+        this.numero = numero;
+    }
+
 }
