@@ -23,11 +23,12 @@ public class ClienteEntity {
     private String cpf;
     private String email;
 
-    @OneToMany(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER,mappedBy="clienteEntity", orphanRemoval=true)
+    @OneToMany(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER, mappedBy="clienteEntity", orphanRemoval=true)
     @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private List<TelefoneEntity> telefoneEntity;
 
-    @OneToMany(mappedBy = "clienteEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER,mappedBy="clienteEntity", orphanRemoval=true)
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private List<EnderecoEntity> enderecoEntity;
 
     // **************
