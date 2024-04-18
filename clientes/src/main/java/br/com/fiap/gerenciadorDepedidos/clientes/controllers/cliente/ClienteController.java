@@ -1,10 +1,8 @@
 package br.com.fiap.gerenciadorDepedidos.clientes.controllers.cliente;
 
-import br.com.fiap.gerenciadorDepedidos.clientes.records.cliente.ClienteDTO;
-import br.com.fiap.gerenciadorDepedidos.clientes.records.cliente.DadosAtualizarNomeClienteDTO;
-import br.com.fiap.gerenciadorDepedidos.clientes.records.cliente.DadosCriacaoClienteDTO;
-import br.com.fiap.gerenciadorDepedidos.clientes.records.cliente.DadosRetornoAtualizacaoNomeClienteDTO;
+import br.com.fiap.gerenciadorDepedidos.clientes.records.cliente.*;
 import br.com.fiap.gerenciadorDepedidos.clientes.useCases.cliente.AtualizarNomeClienteUseCase;
+import br.com.fiap.gerenciadorDepedidos.clientes.useCases.cliente.BuscarClientePorCPFUseCase;
 import br.com.fiap.gerenciadorDepedidos.clientes.useCases.cliente.CriarClienteUseCase;
 import br.com.fiap.gerenciadorDepedidos.clientes.useCases.cliente.ListarTodosClientesUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Classe Controller das operações do Restaurante
@@ -30,6 +30,9 @@ public class ClienteController {
 
     @Autowired
     private ListarTodosClientesUseCase listarTodosClientesUseCase;
+
+    @Autowired
+    private BuscarClientePorCPFUseCase buscarClientePorCPFUseCase;
 
     @PostMapping("/criar-cliente")
     public ResponseEntity<DadosCriacaoClienteDTO> criarCiente(
@@ -50,5 +53,10 @@ public class ClienteController {
     @GetMapping
     public Page<ClienteDTO> listarClientes(Pageable page) {
         return listarTodosClientesUseCase.listarClientes(page);
+    }
+
+    @GetMapping("/filtro")
+    public ResponseEntity<List<ClienteDTO>> buscarClientePorCPF(ClienteCpfFiltroDTO filtro) {
+        return ResponseEntity.ok(buscarClientePorCPFUseCase.buscarClientePorCPF(filtro));
     }
 }

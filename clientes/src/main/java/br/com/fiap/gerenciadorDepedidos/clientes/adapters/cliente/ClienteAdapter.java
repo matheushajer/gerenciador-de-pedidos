@@ -8,6 +8,9 @@ import br.com.fiap.gerenciadorDepedidos.clientes.records.cliente.DadosCriacaoCli
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Classe para efetuar tratamento dos dados vindo das APIs
  * e dos dados retornados nas operações do cliente.
@@ -86,5 +89,18 @@ public class ClienteAdapter {
         return new ClienteDTO(clienteEntity.getId(), clienteEntity.getNome(), censurarCPF(clienteEntity.getCpf()),
                 clienteEntity.getEmail(), telefoneAdapter.converterListaTelefoneEntityParaListaTelefoneDTO(clienteEntity.getTelefoneEntity()),
                 enderecoAdapter.converterListaEnderecoEntityParaListaDeEnderecoDTO(clienteEntity.getEnderecoEntity()));
+    }
+
+    /**
+     * Converter a lista de entidade de cliente para a lista do objeto
+     *
+     * @param clienteEntityList lista da entidade cliente
+     *
+     * @return O objeto cliente listado e mapeado
+     */
+    public List<ClienteDTO> converterClienteEntitylistParaClienteDTOList(List<ClienteEntity> clienteEntityList) {
+        List<ClienteDTO> clienteDTOList = new ArrayList<>();
+        clienteEntityList.forEach(entity ->  clienteDTOList.add(converterClienteEntityParaClienteDTO(entity)));
+        return clienteDTOList;
     }
 }
