@@ -3,6 +3,7 @@ package br.com.fiap.gerenciadorDepedidos.clientes.adapters.cliente;
 import br.com.fiap.gerenciadorDepedidos.clientes.adapters.endereco.EnderecoAdapter;
 import br.com.fiap.gerenciadorDepedidos.clientes.adapters.telefone.TelefoneAdapter;
 import br.com.fiap.gerenciadorDepedidos.clientes.entities.ClienteEntity;
+import br.com.fiap.gerenciadorDepedidos.clientes.records.cliente.ClienteDTO;
 import br.com.fiap.gerenciadorDepedidos.clientes.records.cliente.DadosCriacaoClienteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,11 +69,22 @@ public class ClienteAdapter {
      * @param cpf CPF que será censurado.
      * @return CPF censurado, na seguinte formatação | ***-***-**6-76
      */
-    private String censurarCPF(String cpf) {
+    public String censurarCPF(String cpf) {
 
         // Aplica a censura no CPF
-        return "***-***-**" + cpf.substring(8);
-
+        return cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "***-***-$3-$4");
     }
 
+    /**
+     * Converter a entidade de cliente para o objeto
+     *
+     * @param clienteEntity entidade cliente
+     * @return O objeto cliente mapeado
+     */
+    public ClienteDTO converterClienteEntityParaClienteDTO(ClienteEntity clienteEntity) {
+
+        return new ClienteDTO(clienteEntity.getId(), clienteEntity.getNome(), censurarCPF(clienteEntity.getCpf()),
+                clienteEntity.getEmail(), telefoneAdapter.converterListaTelefoneEntityParaListaTelefoneDTO(clienteEntity.getTelefoneEntity()),
+                enderecoAdapter.converterListaEnderecoEntityParaListaDeEnderecoDTO(clienteEntity.getEnderecoEntity()));
+    }
 }

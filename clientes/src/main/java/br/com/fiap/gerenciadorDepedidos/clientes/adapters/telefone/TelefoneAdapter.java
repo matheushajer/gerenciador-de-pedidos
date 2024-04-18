@@ -2,6 +2,7 @@ package br.com.fiap.gerenciadorDepedidos.clientes.adapters.telefone;
 
 import br.com.fiap.gerenciadorDepedidos.clientes.entities.ClienteEntity;
 import br.com.fiap.gerenciadorDepedidos.clientes.entities.TelefoneEntity;
+import br.com.fiap.gerenciadorDepedidos.clientes.records.cliente.TelefoneDTO;
 import br.com.fiap.gerenciadorDepedidos.clientes.records.telefone.DadosCriacaoTelefoneDTO;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +63,7 @@ public class TelefoneAdapter {
      * Método para converter uma lista de dadosCriacaoTelefoneDTO para uma lista de TelefoneEntity.
      *
      * @param dadosCriacaoTelefoneDTOList Lista de objetos com os dados a serem convertidos.
-     * @param clienteEntity Objeto com os dados do cliente para relacionamento.
+     * @param clienteEntity               Objeto com os dados do cliente para relacionamento.
      * @return telefoneEntityList Lista de objetos convertidos.
      */
     public List<TelefoneEntity> converterParaListaDeTelefones(
@@ -89,6 +90,25 @@ public class TelefoneAdapter {
 
         return telefoneEntityList;
 
+    }
+
+    /**
+     * Método para converter a lista de entidade do telefone para listagem do objeto
+     *
+     * @param telefoneEntities lista de entidade do telefone
+     *
+     * @return Lista de objeto telefone mapeada
+     */
+    public List<TelefoneDTO> converterListaTelefoneEntityParaListaTelefoneDTO(List<TelefoneEntity> telefoneEntities) {
+        List<TelefoneDTO> telefones = new ArrayList<>();
+
+        telefoneEntities.forEach(telefone -> {
+            TelefoneDTO telefoneDTO = new TelefoneDTO(telefone.getId(), telefone.getDdi(), telefone.getDdd(),
+                    telefone.getNumero(), telefone.isTelefonePrincial());
+            telefones.add(telefoneDTO);
+        });
+
+        return telefones;
     }
 
 }

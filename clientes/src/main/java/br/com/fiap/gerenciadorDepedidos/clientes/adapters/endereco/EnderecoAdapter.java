@@ -2,6 +2,7 @@ package br.com.fiap.gerenciadorDepedidos.clientes.adapters.endereco;
 
 import br.com.fiap.gerenciadorDepedidos.clientes.entities.ClienteEntity;
 import br.com.fiap.gerenciadorDepedidos.clientes.entities.EnderecoEntity;
+import br.com.fiap.gerenciadorDepedidos.clientes.records.cliente.EnderecoDTO;
 import br.com.fiap.gerenciadorDepedidos.clientes.records.endereco.DadosCriacaoEnderecoDTO;
 import org.springframework.stereotype.Service;
 
@@ -102,6 +103,25 @@ public class EnderecoAdapter {
 
         return enderecoEntityList;
 
+    }
+
+    /**
+     * Método para converter a lista da entidade de endereco para lista de objeto
+     *
+     * @param enderecoEntities lista de entidade do endereco
+     * @return Lista de objeto endereco mapeada
+     */
+    public List<EnderecoDTO> converterListaEnderecoEntityParaListaDeEnderecoDTO(List<EnderecoEntity> enderecoEntities) {
+        List<EnderecoDTO> enderecos = new ArrayList<>();
+
+        enderecoEntities.forEach(endereco -> {
+            EnderecoDTO enderecoDTO = new EnderecoDTO(endereco.getId(), endereco.getCep(),
+                    endereco.getLogradouro(), endereco.getNumero(), endereco.getComplemento(),
+                    endereco.getBairro(), endereco.getCidade(), endereco.getUf(), endereco.isEnderecoPrincipal());
+            enderecos.add(enderecoDTO);
+        });
+
+        return enderecos;
     }
 
 }
