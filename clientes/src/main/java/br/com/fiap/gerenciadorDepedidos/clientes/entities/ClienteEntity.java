@@ -44,4 +44,21 @@ public class ClienteEntity {
         this.email = email;
     }
 
+    public ClienteEntity(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
+    public ClienteEntity(String nome, String cpf) {
+        this.nome = nome;
+        this.cpf = cpf;
+    }
+
+    public ClienteEntity(String nome, String cpf, String email, List<TelefoneEntity> telefoneEntity, List<EnderecoEntity> enderecoEntity) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.telefoneEntity = telefoneEntity;
+        this.enderecoEntity = enderecoEntity;
+    }
 }

@@ -6,6 +6,8 @@ import br.com.fiap.gerenciadorDepedidos.clientes.repositories.TelefoneRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AtualizarTelefonePrincipalClienteUseCase {
@@ -40,8 +42,13 @@ public class AtualizarTelefonePrincipalClienteUseCase {
      * @param clienteId identificador do cliente
      * @return O telefone principal do cliente
      */
-    private TelefoneEntity findByclienteEntityIdAndIsTelefonePrincialIsTrue(Long clienteId) {
-        return this.telefoneRepository.findByclienteEntityIdAndIsTelefonePrincialIsTrue(clienteId);
+    TelefoneEntity findByclienteEntityIdAndIsTelefonePrincialIsTrue(Long clienteId) {
+        Optional<TelefoneEntity> telefoneOptional = telefoneRepository.findByclienteEntityIdAndIsTelefonePrincialIsTrue(clienteId);
+        if (telefoneOptional.isPresent()) {
+            return telefoneOptional.get();
+        } else {
+            throw new IllegalArgumentException("Telefone principal não encontrado para o cliente com ID: " + clienteId);
+        }
     }
 
 }

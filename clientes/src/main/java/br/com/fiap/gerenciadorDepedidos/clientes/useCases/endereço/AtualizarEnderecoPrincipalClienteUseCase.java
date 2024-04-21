@@ -43,7 +43,7 @@ public class AtualizarEnderecoPrincipalClienteUseCase {
      * @param clienteId identificador do cliente
      * @return O endereco principal do cliente
      */
-    private EnderecoEntity findByClienteEntityIdAndIsEnderecoPrincipalIsTrue(Long clienteId) {
+    public EnderecoEntity findByClienteEntityIdAndIsEnderecoPrincipalIsTrue(Long clienteId) {
         return this.enderecoRepository.findByClienteEntityIdAndIsEnderecoPrincipalIsTrue(clienteId);
     }
 }

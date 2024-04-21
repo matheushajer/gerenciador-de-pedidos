@@ -48,8 +48,5 @@ public class AtualizarNomeClienteUseCase {
         } else {
             throw new EntityNotFoundException("Cliente não encontrado!");
         }
-
     }
-
-
 }

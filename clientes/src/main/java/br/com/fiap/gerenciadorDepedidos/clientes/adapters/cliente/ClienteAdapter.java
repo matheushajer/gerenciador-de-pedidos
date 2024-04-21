@@ -87,7 +87,7 @@ public class ClienteAdapter {
     public ClienteDTO converterClienteEntityParaClienteDTO(ClienteEntity clienteEntity) {
 
         return new ClienteDTO(clienteEntity.getId(), clienteEntity.getNome(), censurarCPF(clienteEntity.getCpf()),
-                clienteEntity.getEmail(), telefoneAdapter.converterListaTelefoneEntityParaListaTelefoneDTO(clienteEntity.getTelefoneEntity()),
+                telefoneAdapter.converterListaTelefoneEntityParaListaTelefoneDTO(clienteEntity.getTelefoneEntity()),
                 enderecoAdapter.converterListaEnderecoEntityParaListaDeEnderecoDTO(clienteEntity.getEnderecoEntity()));
     }
 
