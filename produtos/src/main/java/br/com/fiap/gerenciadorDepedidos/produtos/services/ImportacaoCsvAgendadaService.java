@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Classe Service para tratar a rotina de importação de produtos
+ * agendada.
+ */
 @Service
 public class ImportacaoCsvAgendadaService {
 
@@ -22,6 +26,10 @@ public class ImportacaoCsvAgendadaService {
 
     String nomeArquivoCsv = "carga-de-produtos.csv";
 
+    /**
+     * Método temporizado para efetuar a leitura de um arquivo CSV dentro do diretório
+     * Resources, a cada 2 horas, desde a iniciação da aplicação.
+     */
     @Scheduled(initialDelay = 7200000, fixedRate = 7200000)
     public void importarArquivoCSV() {
 

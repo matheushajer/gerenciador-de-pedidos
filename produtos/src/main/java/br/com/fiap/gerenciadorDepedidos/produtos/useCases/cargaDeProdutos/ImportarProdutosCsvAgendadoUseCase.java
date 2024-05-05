@@ -11,6 +11,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Classe para implementar o caso de uso da importação de produtos em massa
+ * pela rotina de agendamento.
+ */
 @Service
 public class ImportarProdutosCsvAgendadoUseCase {
 
@@ -19,6 +23,11 @@ public class ImportarProdutosCsvAgendadoUseCase {
     @Autowired
     ProdutoAdapter produtoAdapter;
 
+    /**
+     * Método assincrono, para efetuar a importação agendada de produtos.
+     *
+     * @param file Objeto arquivo vindo da rotina agendada.
+     */
     @Async
     public void importarProdutosCsvAgendado(File file) {
 

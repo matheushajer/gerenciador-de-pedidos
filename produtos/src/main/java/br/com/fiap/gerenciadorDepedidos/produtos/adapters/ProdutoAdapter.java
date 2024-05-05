@@ -120,6 +120,13 @@ public class ProdutoAdapter {
         return produtos;
     }
 
+    /**
+     * Método para processar aquivos CSV usados na rotina agendada.
+     *
+     * @param arquivoCsv Objeto arquivo com os dados para serem processdos.
+     * @return List<ProdutoEntity> Lista de ProdutoEntity, com os dados processados do arquivo.
+     * @throws IOException Exception lançado em casos de erro na leitura do arquivo.
+     */
     public List<ProdutoEntity> processarCsvAgendado(File arquivoCsv) throws IOException {
         List<ProdutoEntity> produtos;
 
