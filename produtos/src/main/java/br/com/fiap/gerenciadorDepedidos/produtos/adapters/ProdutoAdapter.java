@@ -7,10 +7,7 @@ import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosProdutoParaEntrega
 import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosProdutoParaPedidoDTO;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -113,6 +110,20 @@ public class ProdutoAdapter {
         List<ProdutoEntity> produtos;
 
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+
+            produtos = bufferedReader.lines()
+                    .skip(1)
+                    .map(this::parseLinhaProduto)
+                    .collect(Collectors.toList());
+
+        }
+        return produtos;
+    }
+
+    public List<ProdutoEntity> processarCsvAgendado(File arquivoCsv) throws IOException {
+        List<ProdutoEntity> produtos;
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivoCsv))) {
 
             produtos = bufferedReader.lines()
                     .skip(1)
