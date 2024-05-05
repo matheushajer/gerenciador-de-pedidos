@@ -6,6 +6,7 @@ import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosCriacaoProdutoDTO;
 import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosProdutoParaEntregaDTO;
 import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosProdutoParaPedidoDTO;
 import br.com.fiap.gerenciadorDepedidos.produtos.useCases.*;
+import br.com.fiap.gerenciadorDepedidos.produtos.useCases.cargaDeProdutos.ImportarProdutosCsvUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Classe Controller das operações do Produto.
@@ -39,6 +41,8 @@ public class ProdutoController {
     DadosProdutoParaEntregaUseCase dadosProdutoParaEntregaUseCase;
     @Autowired
     ListarProdutosPelaCategoriaUseCase listarProdutosPelaCategoriaUseCase;
+    @Autowired
+    ImportarProdutosCsvUseCase importarProdutosCsvUseCase;
 
     @GetMapping
     public Page<ProdutoEntity> listarTodosProdutosPaginado(Pageable pageable) {
@@ -103,5 +107,10 @@ public class ProdutoController {
 
     }
 
+    @PostMapping("/importar-csv")
+    public ResponseEntity<String> importarCsv(@RequestParam("file") MultipartFile file) {
+        importarProdutosCsvUseCase.importarProdutosCsv(file);
+        return ResponseEntity.ok("CSV Importado com sucesso!");
+    }
 
 }

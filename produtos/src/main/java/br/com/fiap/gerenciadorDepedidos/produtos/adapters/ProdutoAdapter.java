@@ -1,10 +1,19 @@
 package br.com.fiap.gerenciadorDepedidos.produtos.adapters;
 
 import br.com.fiap.gerenciadorDepedidos.produtos.entities.ProdutoEntity;
+import br.com.fiap.gerenciadorDepedidos.produtos.entities.enuns.CategoriaProduto;
 import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosCriacaoProdutoDTO;
 import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosProdutoParaEntregaDTO;
 import br.com.fiap.gerenciadorDepedidos.produtos.records.DadosProdutoParaPedidoDTO;
 import org.springframework.stereotype.Service;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Classe para efetuar tratamento dos dados vindo das APIs
@@ -92,4 +101,49 @@ public class ProdutoAdapter {
         );
 
     }
+
+    /**
+     * Método para processar os dados vindos de um arquivo CSV, com os dados para criação de produtos.
+     *
+     * @param inputStream Objeto para representar o arquivo vindo da API.
+     * @return List<ProdutoEntity> Lista de ProdutoEntity, com os dados processados do arquivo.
+     * @throws IOException Exception lançado em casos de erro na leitura do arquivo.
+     */
+    public List<ProdutoEntity> processarCsv(InputStream inputStream) throws IOException {
+        List<ProdutoEntity> produtos;
+
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+
+            produtos = bufferedReader.lines()
+                    .skip(1)
+                    .map(this::parseLinhaProduto)
+                    .collect(Collectors.toList());
+
+        }
+        return produtos;
+    }
+
+    /**
+     * Método auxiliar para efetuar o parse do arquivo CSV e criar um ProdutoEntity
+     * em cada linha do arquivo.
+     *
+     * @param linha Linha do arquivo CSV, com os dados do produto.
+     * @return ProdutoEntity Objeto com os dados vindos do CSV.
+     */
+    private ProdutoEntity parseLinhaProduto(String linha) {
+        String[] campos = linha.split(",");
+
+        String nome = campos[0].trim();
+        String descricao = campos[1].trim();
+        BigDecimal preco = new BigDecimal(campos[2].trim());
+        int quantidade = Integer.parseInt(campos[3].trim());
+        CategoriaProduto categoria = CategoriaProduto.fromString(campos[4].trim());
+        int altura = Integer.parseInt(campos[5].trim());
+        int largura = Integer.parseInt(campos[6].trim());
+        int comprimento = Integer.parseInt(campos[7].trim());
+        double peso = Double.parseDouble(campos[8].trim());
+
+        return new ProdutoEntity(nome, descricao, preco, quantidade, categoria, altura, largura, comprimento, peso);
+    }
+
 }
