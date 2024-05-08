@@ -21,13 +21,13 @@ import java.math.BigDecimal;
 public class IncluirItemPedidoUseCase {
 
     @Autowired
-    private PedidoRepository pedidoRepository;
+    PedidoRepository pedidoRepository;
+
+    @Autowired(required = false)
+    ProdutoAdapter produtoAdapter;
 
     @Autowired
-    private ProdutoAdapter produtoAdapter;
-
-    @Autowired
-    private ProdutoRepository produtoRepository;
+    ProdutoRepository produtoRepository;
 
 //    @Autowired
 //    private EntregaAdapter entregaAdapter;

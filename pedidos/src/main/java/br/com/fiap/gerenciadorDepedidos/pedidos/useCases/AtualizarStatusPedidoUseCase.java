@@ -35,7 +35,7 @@ public class AtualizarStatusPedidoUseCase {
             throw new IllegalStateException("Transição de status inválida de " + pedido.getStatus() + " para " + dadosAtualizacaoStatusPedidoDTO.novoStatus());
         }
 
-       return dadosAtualizacaoStatusPedidoDTO;
+        return dadosAtualizacaoStatusPedidoDTO;
 
     }
 }

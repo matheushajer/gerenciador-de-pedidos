@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 
@@ -12,6 +11,7 @@ import java.math.BigDecimal;
 @Data
 @Table(name = "tb_item_pedido")
 public class ItemPedidoEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +26,6 @@ public class ItemPedidoEntity {
     private BigDecimal preco;
     private Integer quantidade;
 
-    // Construtores
     public ItemPedidoEntity() {
     }
 

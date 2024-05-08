@@ -48,7 +48,7 @@ public class RemoverItemPedidoUseCase {
             throw new RuntimeException("Produto com ID " + produtoId + " não encontrado no pedido.");
         }
 
-      //  atualizarValoresPedido(pedido);
+        //  atualizarValoresPedido(pedido);
         pedidoRepository.save(pedido);
     }
 

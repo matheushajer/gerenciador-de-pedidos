@@ -14,7 +14,7 @@ import java.util.List;
 public class PedidoAdapter {
 
     @Autowired
-    private ItemPedidoAdapter itemPedidoAdapter;
+    ItemPedidoAdapter itemPedidoAdapter;
 
     // Converte um DadosCriacaoPedidoDTO para um PedidoEntity, associando os itens de pedido correspondentes.
     public PedidoEntity converterParaEntity(DadosCriacaoPedidoDTO dadosCriacaoPedidoDTO) {

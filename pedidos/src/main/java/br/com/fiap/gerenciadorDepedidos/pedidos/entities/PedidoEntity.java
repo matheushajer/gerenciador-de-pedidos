@@ -18,7 +18,7 @@ public class PedidoEntity {
     private Long id;
     private Long clienteId;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "pedidoEntity", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
     @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private List<ItemPedidoEntity> itensPedido;
 

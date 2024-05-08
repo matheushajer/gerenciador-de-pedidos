@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * Classe tratará apenas dos erros de Validação dos DTOs.
  */
 @RestControllerAdvice
-public class CustomExceptionHandler {
+public class PedidoCustomExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<CustomErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
