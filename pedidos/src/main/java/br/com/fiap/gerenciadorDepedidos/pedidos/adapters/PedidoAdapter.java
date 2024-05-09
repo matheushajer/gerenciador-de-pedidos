@@ -1,53 +1,105 @@
 package br.com.fiap.gerenciadorDepedidos.pedidos.adapters;
 
 
+import br.com.fiap.gerenciadorDepedidos.pedidos.entities.ItemPedidoEntity;
 import br.com.fiap.gerenciadorDepedidos.pedidos.entities.PedidoEntity;
-import br.com.fiap.gerenciadorDepedidos.pedidos.records.DadosCriacaoPedidoDTO;
-import br.com.fiap.gerenciadorDepedidos.pedidos.records.PedidoDTO;
+import br.com.fiap.gerenciadorDepedidos.pedidos.records.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe adapter para conversões do PedidoEntity.
+ */
 @Service
 public class PedidoAdapter {
 
     @Autowired
     ItemPedidoAdapter itemPedidoAdapter;
 
-    // Converte um DadosCriacaoPedidoDTO para um PedidoEntity, associando os itens de pedido correspondentes.
-    public PedidoEntity converterParaEntity(DadosCriacaoPedidoDTO dadosCriacaoPedidoDTO) {
-        PedidoEntity pedidoEntity = new PedidoEntity();
-        // Configura os dados básicos do pedidoEntity a partir do DTO recebido
-        dadosCriacaoPedidoDTO.clienteId();
-        dadosCriacaoPedidoDTO.valorPedido();
-        dadosCriacaoPedidoDTO.prazoDeEntrega();
-        dadosCriacaoPedidoDTO.frete();
-        dadosCriacaoPedidoDTO.valorComFrete();
-        dadosCriacaoPedidoDTO.status();
-        dadosCriacaoPedidoDTO.codigoDeRastreio();
-        dadosCriacaoPedidoDTO.dataCriacaoPedido();
+    /**
+     * Método adapter para pegar os dados vindos da API e criar um PedidoEntity.
+     *
+     * @param dadosCriacaoPedidoDTO         Objeto com os dados vindos da API, para criação de um pedido.
+     * @param dadosProdutoParaItemPedidoDTO Objeto vindo do serviço de Produtos, para criação de um pedido.
+     * @return PedidoEntity Objeto PedidoEntity, com os dados tratados e convertidos.
+     */
+    public PedidoEntity converterParaEntity(
+            DadosCriacaoPedidoDTO dadosCriacaoPedidoDTO, List<DadosProdutoParaItemPedidoDTO> dadosProdutoParaItemPedidoDTO) {
 
-        // Converte os itens de pedido DTO para entidades de ItemPedido e associa ao pedidoEntity
-        pedidoEntity.setItensPedido(itemPedidoAdapter.converterParaListaDeItensPedido(dadosCriacaoPedidoDTO.itensPedido(), pedidoEntity));
+        PedidoEntity pedidoEntity = new PedidoEntity();
+        List<ItemPedidoEntity> itensPedidoEntity = new ArrayList<>();
+
+        pedidoEntity.setClienteId(dadosCriacaoPedidoDTO.clienteId());
+
+        int index = 0;
+        for (ItemPedidoDTO itemPedidoDTO : dadosCriacaoPedidoDTO.itensPedido()) {
+
+            ItemPedidoEntity itemPedidoEntity = new ItemPedidoEntity();
+
+            itemPedidoEntity.setPedidoEntity(pedidoEntity);
+            itemPedidoEntity.setProdutoId(itemPedidoDTO.produtoId());
+            itemPedidoEntity.setQuantidade(itemPedidoDTO.quantidade());
+
+
+            itemPedidoEntity.setNome(dadosProdutoParaItemPedidoDTO.get(index).nome());
+            itemPedidoEntity.setPreco(dadosProdutoParaItemPedidoDTO.get(index).preco());
+
+            itensPedidoEntity.add(itemPedidoEntity);
+
+            pedidoEntity.setItensPedido(itensPedidoEntity);
+
+            index++;
+
+        }
+
+        pedidoEntity.calcularValorTotalPedido(itensPedidoEntity);
 
         return pedidoEntity;
     }
 
-    // Converte um PedidoEntity para um DadosCriacaoPedidoDTO.
-    public DadosCriacaoPedidoDTO converterParaDTO(PedidoEntity pedidoEntity) {
-        return new DadosCriacaoPedidoDTO(
+
+    /**
+     * Método adapter para converter um PedidoEntity para um DadosRetornoCriacaoPedidoDTO.
+     *
+     * @param pedidoEntity Objeto com os dados a serem convertidos.
+     * @return DadosRetornoCriacaoPedidoDTO Objeto com os dados tratados e convertidos.
+     */
+    public DadosRetornoCriacaoPedidoDTO converterParaDadosRetornoCriacaoPedidoDTO(PedidoEntity pedidoEntity) {
+        return new DadosRetornoCriacaoPedidoDTO(
+                pedidoEntity.getId(),
                 pedidoEntity.getClienteId(),
-                itemPedidoAdapter.converterParaListaDeDTO(pedidoEntity.getItensPedido()),
+                converterListItemPedidoEntityParaListItemPedidoDTO(pedidoEntity.getItensPedido()),
                 pedidoEntity.getValorPedido(),
-                pedidoEntity.getPrazoDeEntrega(),
-                pedidoEntity.getFrete(),
-                pedidoEntity.getValorComFrete(),
                 pedidoEntity.getStatus(),
-                pedidoEntity.getCodigoDeRastreio(),
                 pedidoEntity.getDataCriacaoPedido()
         );
+    }
+
+    /**
+     * Método auxuliar para converter uma lista de ItemPedidoEntity para
+     *
+     * @param itemPedidoEntities
+     * @return
+     */
+    private List<ItemPedidoDTO> converterListItemPedidoEntityParaListItemPedidoDTO
+    (List<ItemPedidoEntity> itemPedidoEntities) {
+
+        List<ItemPedidoDTO> itemPedidoDTOs = new ArrayList<>();
+
+        itemPedidoEntities.forEach(item ->
+                itemPedidoDTOs.add(new ItemPedidoDTO(
+                        item.getProdutoId(),
+                        item.getNome(),
+                        item.getPreco(),
+                        item.getQuantidade()
+                ))
+        );
+
+        return itemPedidoDTOs;
+
     }
 
     // Converte um PedidoEntity para um PedidoDTO, incluindo uma lista de ItemPedidoDTO.
@@ -66,11 +118,4 @@ public class PedidoAdapter {
         );
     }
 
-    // Converte uma lista de PedidoEntity para uma lista de PedidoDTO.
-    public List<PedidoDTO> converterPedidoEntityListParaPedidoDTOList(List<PedidoEntity> pedidoEntityList) {
-        List<PedidoDTO> pedidoDTOList = new ArrayList<>();
-        // Converte cada PedidoEntity para PedidoDTO e adiciona à lista de retorno
-        pedidoEntityList.forEach(entity -> pedidoDTOList.add(converterPedidoEntityParaPedidoDTO(entity)));
-        return pedidoDTOList;
-    }
 }

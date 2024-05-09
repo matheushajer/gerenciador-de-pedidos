@@ -1,12 +1,6 @@
 package br.com.fiap.gerenciadorDepedidos.pedidos.controllers;
 
-import br.com.fiap.gerenciadorDepedidos.pedidos.records.DadosAtualizacaoStatusPedidoDTO;
-import br.com.fiap.gerenciadorDepedidos.pedidos.records.DadosCriacaoPedidoDTO;
-import br.com.fiap.gerenciadorDepedidos.pedidos.records.DadosInclusaoItemPedidoDTO;
-import br.com.fiap.gerenciadorDepedidos.pedidos.records.DadosRemocaoItemPedidoDTO;
-import br.com.fiap.gerenciadorDepedidos.pedidos.records.DadosInsercaoDadosEntregaDTO;
-import br.com.fiap.gerenciadorDepedidos.pedidos.records.ItemPedidoDTO;
-import br.com.fiap.gerenciadorDepedidos.pedidos.records.PedidoDTO;
+import br.com.fiap.gerenciadorDepedidos.pedidos.records.*;
 import br.com.fiap.gerenciadorDepedidos.pedidos.useCases.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,16 +18,12 @@ public class PedidoController {
 
     @Autowired
     CriarPedidoUseCase criarPedidoUseCase;
-
     @Autowired
     AtualizarStatusPedidoUseCase atualizarStatusPedidoUseCase;
-
     @Autowired
     IncluirItemPedidoUseCase incluirItemPedidoUseCase;
-
     @Autowired
     InserirDadosEntregaUseCase inserirDadosEntregaUseCase;
-
     @Autowired
     RemoverItemPedidoUseCase removerItemPedidoUseCase;
 
@@ -42,13 +32,10 @@ public class PedidoController {
      * Recebe um DTO com os dados do pedido e retorna o pedido criado com status HTTP 201.
      */
     @PostMapping("/criar-pedido")
-    public ResponseEntity<?> criarPedido(@RequestBody DadosCriacaoPedidoDTO dadosCriacaoPedido) {
-        try {
-            criarPedidoUseCase.criarPedido(dadosCriacaoPedido);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<DadosRetornoCriacaoPedidoDTO> criarPedido(@RequestBody DadosCriacaoPedidoDTO dadosCriacaoPedido) {
+
+        return ResponseEntity.ok(criarPedidoUseCase.criarPedido(dadosCriacaoPedido));
+
     }
 
     /**

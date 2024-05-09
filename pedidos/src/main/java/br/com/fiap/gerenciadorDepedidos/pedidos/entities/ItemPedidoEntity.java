@@ -2,8 +2,6 @@ package br.com.fiap.gerenciadorDepedidos.pedidos.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 
@@ -17,14 +15,17 @@ public class ItemPedidoEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "pedido_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "pedido_id")
     private PedidoEntity pedidoEntity;
 
     private Long produtoId;
     private String nome;
     private BigDecimal preco;
     private Integer quantidade;
+
+    // **************
+    // Construtores
+    // **************
 
     public ItemPedidoEntity() {
     }
@@ -43,4 +44,19 @@ public class ItemPedidoEntity {
         this.preco = preco;
         this.quantidade = quantidade;
     }
+
+    // ******************
+    // Métodos auxiliares
+    // ******************
+
+    /**
+     * Multiplica o preco pela quantadade de um itemPedido.
+     *
+     * @return valorTotalItem BigDecimal, com o valor da soma.
+     */
+    public BigDecimal calcularValorTotalItem() {
+        BigDecimal valorTotalItem = preco.multiply(BigDecimal.valueOf(quantidade));
+        return valorTotalItem;
+    }
+
 }
