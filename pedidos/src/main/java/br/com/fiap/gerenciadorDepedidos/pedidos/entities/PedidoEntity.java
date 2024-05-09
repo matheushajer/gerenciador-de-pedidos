@@ -22,7 +22,7 @@ public class PedidoEntity {
 
     private BigDecimal valorPedido = BigDecimal.ZERO;
     private Integer prazoDeEntrega;
-    private BigDecimal frete;
+    private BigDecimal frete = BigDecimal.ZERO;
     private BigDecimal valorComFrete;
 
     @Enumerated(EnumType.STRING)
