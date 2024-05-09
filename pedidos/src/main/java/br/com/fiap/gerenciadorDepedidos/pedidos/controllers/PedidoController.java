@@ -80,7 +80,7 @@ public class PedidoController {
      * Endpoint para inserir dados de entrega em um pedido existente.
      * Recebe o ID do pedido e um DTO com os dados de entrega a serem atualizados.
      */
-    @PostMapping("/inserir-dados-entrega/{pedidoId}")
+    @PatchMapping("/inserir-dados-entrega/{pedidoId}")
     public ResponseEntity<Void> inserirDadosEntrega(
             @PathVariable Long pedidoId, @RequestBody @Validated DadosInsercaoEntregaDTO dadosEntregaDTO) {
 
