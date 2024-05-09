@@ -61,4 +61,14 @@ public class PedidoEntity {
 
     }
 
+    /**
+     * Método para calcular o valor total do pedido com o frete.
+     * Soma o valorPedido com o frete.
+     */
+    public void calcularValorComFrete() {
+
+        this.valorComFrete = this.frete.add(this.valorPedido);
+
+    }
+
 }

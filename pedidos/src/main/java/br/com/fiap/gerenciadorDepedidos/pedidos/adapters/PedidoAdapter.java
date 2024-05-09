@@ -60,7 +60,6 @@ public class PedidoAdapter {
         return pedidoEntity;
     }
 
-
     /**
      * Método adapter para converter um PedidoEntity para um DadosRetornoCriacaoPedidoDTO.
      *

@@ -5,9 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public record DadosInsercaoDadosEntregaDTO(
-        @NotNull(message = "O ID do pedido é obrigatório.")
-        Long pedidoId,
+public record DadosInsercaoEntregaDTO(
 
         @Min(value = 1, message = "O prazo de entrega deve ser pelo menos 1 dia.")
         Integer prazoDeEntrega,

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Classe para efetuar a comunição entre os microserviços de
+ * interface para efetuar a comunição entre os microserviços de
  * pedidos e produtos.
  */
 @FeignClient("produtos")
