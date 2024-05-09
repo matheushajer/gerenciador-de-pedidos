@@ -23,7 +23,7 @@ public class PedidoEntity {
     private BigDecimal valorPedido = BigDecimal.ZERO;
     private Integer prazoDeEntrega;
     private BigDecimal frete = BigDecimal.ZERO;
-    private BigDecimal valorComFrete;
+    private BigDecimal valorComFrete = BigDecimal.ZERO;
 
     @Enumerated(EnumType.STRING)
     private StatusPedido status = StatusPedido.CRIADO;
@@ -67,7 +67,7 @@ public class PedidoEntity {
      */
     public void calcularValorComFrete() {
 
-        this.valorComFrete = this.frete.add(this.valorPedido);
+        this.valorComFrete = this.valorPedido.add(this.frete);
 
     }
 
