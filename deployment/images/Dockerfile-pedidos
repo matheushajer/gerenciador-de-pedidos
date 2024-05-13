@@ -1,0 +1,22 @@
+FROM maven:3.8.4-openjdk-17
+
+WORKDIR /app
+WORKDIR /tmp
+RUN mkdir -p /tmp/gerenciador-de-pedidos/pedidos
+
+#RUN git clone https://github.com/matheushajer/gerenciador-de-pedidos.git
+COPY ../../pedidos /tmp/gerenciador-de-pedidos/pedidos
+WORKDIR /tmp/gerenciador-de-pedidos/pedidos
+
+RUN mvn clean package -X -DskipTests
+
+# Copia o jar para o diretorio /app
+RUN cp target/*.jar /app
+
+
+# Expoe a porta 8081
+EXPOSE 8081
+WORKDIR /app
+
+# Define o comando para iniciar a API
+CMD java -jar $(ls | grep .jar)
