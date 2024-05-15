@@ -3,6 +3,8 @@ package br.com.fiap.gerenciadorDepedidos.clientes.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +25,12 @@ public class ClienteEntity {
     private String cpf;
     private String email;
 
-    @OneToMany(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER, mappedBy="clienteEntity", orphanRemoval=true)
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+    @OneToMany(mappedBy = "clienteEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(FetchMode.JOIN)
     private List<TelefoneEntity> telefoneEntity;
 
-    @OneToMany(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER,mappedBy="clienteEntity", orphanRemoval=true)
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+    @OneToMany(mappedBy = "clienteEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(FetchMode.JOIN)
     private List<EnderecoEntity> enderecoEntity;
 
     // **************

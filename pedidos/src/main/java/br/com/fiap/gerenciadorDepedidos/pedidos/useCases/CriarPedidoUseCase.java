@@ -41,6 +41,8 @@ public class CriarPedidoUseCase {
                 dadosProdutoParaItemPedidoDTO.add(produtoClient.buscarDadosParaItemPedido(item.produtoId()))
         );
 
+        // Chamar API Externa de entrega
+
         PedidoEntity pedidoEntity = pedidoAdapter.converterParaEntity(dadosCriacaoPedidoDTO,
                 dadosProdutoParaItemPedidoDTO);
 

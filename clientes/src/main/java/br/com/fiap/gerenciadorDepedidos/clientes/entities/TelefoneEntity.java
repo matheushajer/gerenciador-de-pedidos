@@ -23,7 +23,6 @@ public class TelefoneEntity {
     private boolean isTelefonePrincial;
 
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "cliente_id")
     private ClienteEntity clienteEntity;
 

@@ -1,6 +1,6 @@
 package br.com.fiap.gerenciadorDepedidos.entrega.entites.enuns;
 
-public enum StatusPedido {
+public enum StatusEntrega {
     CRIADO,
     PREPARANDO_PACOTE,
     ENVIANDO_PARA_TRANSPORTADORA,
@@ -8,7 +8,7 @@ public enum StatusPedido {
     MERCADORIA_EM_TRANSITO,
     ENTREGUE;
 
-    public static StatusPedido fromString(String statuspedido) {
-        return StatusPedido.valueOf(statuspedido.toUpperCase());
+    public static StatusEntrega fromString(String statuspedido) {
+        return StatusEntrega.valueOf(statuspedido.toUpperCase());
     }
 }

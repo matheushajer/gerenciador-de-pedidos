@@ -1,10 +1,7 @@
 package br.com.fiap.gerenciadorDepedidos.clientes.controllers.cliente;
 
 import br.com.fiap.gerenciadorDepedidos.clientes.records.cliente.*;
-import br.com.fiap.gerenciadorDepedidos.clientes.useCases.cliente.AtualizarNomeClienteUseCase;
-import br.com.fiap.gerenciadorDepedidos.clientes.useCases.cliente.BuscarClientePorCPFUseCase;
-import br.com.fiap.gerenciadorDepedidos.clientes.useCases.cliente.CriarClienteUseCase;
-import br.com.fiap.gerenciadorDepedidos.clientes.useCases.cliente.ListarTodosClientesUseCase;
+import br.com.fiap.gerenciadorDepedidos.clientes.useCases.cliente.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,15 +21,14 @@ public class ClienteController {
 
     @Autowired
     CriarClienteUseCase criarClienteUseCase;
-
     @Autowired
     AtualizarNomeClienteUseCase atualizarNomeClienteUseCase;
-
     @Autowired
     private ListarTodosClientesUseCase listarTodosClientesUseCase;
-
     @Autowired
     private BuscarClientePorCPFUseCase buscarClientePorCPFUseCase;
+    @Autowired
+    BuscarCepClienteUseCase buscarCepClienteUseCase;
 
     @PostMapping("/criar-cliente")
     public ResponseEntity<DadosCriacaoClienteDTO> criarCiente(
@@ -59,4 +55,12 @@ public class ClienteController {
     public ResponseEntity<List<ClienteDTO>> buscarClientePorCPF(ClienteCpfFiltroDTO filtro) {
         return ResponseEntity.ok(buscarClientePorCPFUseCase.buscarClientePorCPF(filtro));
     }
+
+    @GetMapping("/buscar-cep/{cliente_id}")
+    public ResponseEntity<String> buscarCepCliente(@PathVariable Long cliente_id) {
+
+        return ResponseEntity.ok(buscarCepClienteUseCase.buscarCepCliente(cliente_id));
+
+    }
+
 }

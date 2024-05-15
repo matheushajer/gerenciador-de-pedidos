@@ -1,36 +1,29 @@
 package br.com.fiap.gerenciadorDepedidos.entrega.controllers;
 
-import br.com.fiap.gerenciadorDepedidos.entrega.records.DadosEntregaDTO;
-import br.com.fiap.gerenciadorDepedidos.entrega.records.EntregaDTO;
-import br.com.fiap.gerenciadorDepedidos.entrega.records.RequestCEPDTO;
-import br.com.fiap.gerenciadorDepedidos.entrega.useCases.BuscarPedidoEntrega;
-import br.com.fiap.gerenciadorDepedidos.entrega.useCases.CriarPedidoEntrega;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import br.com.fiap.gerenciadorDepedidos.entrega.records.DadosCriacaoEntregaDTO;
+import br.com.fiap.gerenciadorDepedidos.entrega.records.DadosRetornoCriacaoEntregaDTO;
+import br.com.fiap.gerenciadorDepedidos.entrega.useCases.CriarEntregaUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Classe Controller Entregas.
- */
+import java.io.IOException;
+
 @RestController
-@RequestMapping("/entrega")
+@RequestMapping("/entregas")
 public class EntregaController {
+
     @Autowired
-    CriarPedidoEntrega criarPedidoEntrega;
-    @Autowired
-    BuscarPedidoEntrega buscarPedidoEntrega;
-
-    @PostMapping("/buscar-entrega/{pedido}")
-    public ResponseEntity<EntregaDTO> statusPedido(@PathVariable Long pedido) throws Exception {
-
-        return (ResponseEntity<EntregaDTO>) ResponseEntity.ok(buscarPedidoEntrega.buscarPedido(pedido));
-
-    }
+    CriarEntregaUseCase criarEntregaUseCase;
 
     @PostMapping("/criar-entrega")
-    public ResponseEntity<DadosEntregaDTO> criarEntrega(@RequestBody @Validated RequestCEPDTO requestCEPDTO) throws Exception {
-        return (ResponseEntity<DadosEntregaDTO>) ResponseEntity.ok(criarPedidoEntrega.criarEntrega(requestCEPDTO));
+    public ResponseEntity<DadosRetornoCriacaoEntregaDTO> criarPedidoDeEntrega(@RequestBody DadosCriacaoEntregaDTO dadosCriacaoEntregaDTO) throws IOException, InterruptedException {
+
+        return ResponseEntity.ok(criarEntregaUseCase.criarPedidoDeEntrega(dadosCriacaoEntregaDTO));
+
     }
+
 }
