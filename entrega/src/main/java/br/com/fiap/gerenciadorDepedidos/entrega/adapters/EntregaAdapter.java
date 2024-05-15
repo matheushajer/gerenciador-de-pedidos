@@ -121,7 +121,7 @@ public class EntregaAdapter {
 
                 dadosEntrega.setModalidade(dados[1].getName());
                 dadosEntrega.setPreco(precoConvertido);
-                dadosEntrega.setPrazo(String.valueOf(dados[1].getDeliveryTime()));
+                dadosEntrega.setPrazo(String.valueOf(dados[1].getDelivery_time()));
             }
 
         }

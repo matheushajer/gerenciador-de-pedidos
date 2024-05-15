@@ -7,6 +7,6 @@ public class DadosFiltradosConsultaMelhorEnvio {
 
     private String name;
     private String price;
-    private int deliveryTime;
+    private int delivery_time;
 
 }
