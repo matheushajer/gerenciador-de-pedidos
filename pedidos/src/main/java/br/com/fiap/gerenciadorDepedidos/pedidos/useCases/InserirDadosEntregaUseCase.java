@@ -27,7 +27,7 @@ public class InserirDadosEntregaUseCase {
 
         pedidoEntity.setPrazoDeEntrega(dadosEntregaDTO.prazoDeEntrega());
         pedidoEntity.setFrete(dadosEntregaDTO.frete());
-        pedidoEntity.setCodigoDeRastreio(dadosEntregaDTO.codigoDeRastreio());
+        pedidoEntity.setCodigoDeRastreio(Math.toIntExact(dadosEntregaDTO.codigoDeRastreio()));
 
         pedidoEntity.calcularValorComFrete();
 

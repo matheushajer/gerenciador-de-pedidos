@@ -1,10 +1,11 @@
 package br.com.fiap.gerenciadorDepedidos.entrega.useCases;
 
+import br.com.fiap.gerenciadorDepedidos.entrega.adapters.EntregaAdapter;
 import br.com.fiap.gerenciadorDepedidos.entrega.entites.EntregaEntity;
+import br.com.fiap.gerenciadorDepedidos.entrega.http.PedidoClient;
 import br.com.fiap.gerenciadorDepedidos.entrega.records.DadosCriacaoEntregaDTO;
 import br.com.fiap.gerenciadorDepedidos.entrega.records.DadosRetornoCriacaoEntregaDTO;
 import br.com.fiap.gerenciadorDepedidos.entrega.repositories.EntregaRepository;
-import br.com.fiap.gerenciadorDepedidos.entrega.adapters.EntregaAdapter;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ public class CriarEntregaUseCase {
     EntregaRepository entregaRepository;
     @Autowired
     EntregaAdapter entregaAdapter;
+    @Autowired
+    PedidoClient pedidoClient;
 
     public DadosRetornoCriacaoEntregaDTO criarPedidoDeEntrega(DadosCriacaoEntregaDTO dadosCriacaoEntregaDTO) throws IOException, InterruptedException {
 

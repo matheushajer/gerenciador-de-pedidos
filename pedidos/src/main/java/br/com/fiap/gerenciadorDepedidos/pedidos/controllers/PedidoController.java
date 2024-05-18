@@ -1,7 +1,12 @@
 package br.com.fiap.gerenciadorDepedidos.pedidos.controllers;
 
-import br.com.fiap.gerenciadorDepedidos.pedidos.records.*;
-import br.com.fiap.gerenciadorDepedidos.pedidos.useCases.*;
+import br.com.fiap.gerenciadorDepedidos.pedidos.records.DadosAtualizacaoStatusPedidoDTO;
+import br.com.fiap.gerenciadorDepedidos.pedidos.records.DadosCriacaoPedidoDTO;
+import br.com.fiap.gerenciadorDepedidos.pedidos.records.DadosInsercaoEntregaDTO;
+import br.com.fiap.gerenciadorDepedidos.pedidos.records.DadosRetornoCriacaoPedidoDTO;
+import br.com.fiap.gerenciadorDepedidos.pedidos.useCases.AtualizarStatusPedidoUseCase;
+import br.com.fiap.gerenciadorDepedidos.pedidos.useCases.CriarPedidoUseCase;
+import br.com.fiap.gerenciadorDepedidos.pedidos.useCases.InserirDadosEntregaUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +26,7 @@ public class PedidoController {
     @Autowired
     AtualizarStatusPedidoUseCase atualizarStatusPedidoUseCase;
     @Autowired
-    IncluirItemPedidoUseCase incluirItemPedidoUseCase;
-    @Autowired
     InserirDadosEntregaUseCase inserirDadosEntregaUseCase;
-    @Autowired
-    RemoverItemPedidoUseCase removerItemPedidoUseCase;
 
     /**
      * Endpoint para criar um novo pedido.
@@ -52,35 +53,10 @@ public class PedidoController {
     }
 
     /**
-     * Endpoint para incluir itens em um pedido existente.
-     * Recebe o ID do pedido e um DTO com os itens a serem incluídos.
-     */
-    @PostMapping("/incluir-item/{pedidoId}")
-    public ResponseEntity<Void> incluirItemAoPedido(
-            @PathVariable Long pedidoId,
-            @RequestBody @Validated DadosInclusaoItemPedidoDTO dadosInclusaoItemDTO) {
-        dadosInclusaoItemDTO = new DadosInclusaoItemPedidoDTO(pedidoId, dadosInclusaoItemDTO.novosItens()); // Garante que o pedidoId do path é usado
-        incluirItemPedidoUseCase.incluirItem(dadosInclusaoItemDTO);
-        return ResponseEntity.ok().build(); // Retorna 200 OK sem corpo
-    }
-
-    /**
-     * Endpoint para remover itens de um pedido existente.
-     * Recebe o ID do pedido e um DTO com o ID do produto e a quantidade a ser removida.
-     */
-    @DeleteMapping("/remover-item/{pedidoId}")
-    public ResponseEntity<Void> removerItemDoPedido(
-            @PathVariable Long pedidoId,
-            @RequestBody @Validated DadosRemocaoItemPedidoDTO dadosRemocaoItemDTO) {
-        removerItemPedidoUseCase.removerItem(pedidoId, dadosRemocaoItemDTO.produtoId(), dadosRemocaoItemDTO.quantidade());
-        return ResponseEntity.ok().build(); // Retorna 200 OK sem corpo
-    }
-
-    /**
      * Endpoint para inserir dados de entrega em um pedido existente.
      * Recebe o ID do pedido e um DTO com os dados de entrega a serem atualizados.
      */
-    @PatchMapping("/inserir-dados-entrega/{pedidoId}")
+    @PutMapping("/inserir-dados-entrega/{pedidoId}")
     public ResponseEntity<Void> inserirDadosEntrega(
             @PathVariable Long pedidoId, @RequestBody @Validated DadosInsercaoEntregaDTO dadosEntregaDTO) {
 

@@ -4,6 +4,8 @@ package br.com.fiap.gerenciadorDepedidos.pedidos.adapters;
 import br.com.fiap.gerenciadorDepedidos.pedidos.entities.ItemPedidoEntity;
 import br.com.fiap.gerenciadorDepedidos.pedidos.entities.PedidoEntity;
 import br.com.fiap.gerenciadorDepedidos.pedidos.records.*;
+import br.com.fiap.gerenciadorDepedidos.pedidos.records.entregas.DadosProdutoSolicitacaoEntregaDTO;
+import br.com.fiap.gerenciadorDepedidos.pedidos.records.entregas.DadosSolicitacaoEntregaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -100,6 +102,28 @@ public class PedidoAdapter {
         return itemPedidoDTOs;
 
     }
+
+    public DadosSolicitacaoEntregaDTO extrairDadosSolicitacaoEntrega(PedidoEntity pedidoEntity) {
+
+        List<DadosProdutoSolicitacaoEntregaDTO> dadosProduto = new ArrayList<>();
+
+        int index = 0;
+        for (ItemPedidoEntity itemPedido : pedidoEntity.getItensPedido()) {
+
+            DadosProdutoSolicitacaoEntregaDTO dadoProduto = new DadosProdutoSolicitacaoEntregaDTO(
+                    itemPedido.getProdutoId(),
+                    itemPedido.getQuantidade()
+            );
+
+            dadosProduto.add(dadoProduto);
+
+            index++;
+        }
+
+        return new DadosSolicitacaoEntregaDTO(pedidoEntity.getId(), pedidoEntity.getClienteId(), dadosProduto);
+
+    }
+
 
     // Converte um PedidoEntity para um PedidoDTO, incluindo uma lista de ItemPedidoDTO.
     public PedidoDTO converterPedidoEntityParaPedidoDTO(PedidoEntity pedidoEntity) {

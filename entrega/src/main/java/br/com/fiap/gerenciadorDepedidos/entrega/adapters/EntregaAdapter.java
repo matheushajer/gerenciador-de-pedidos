@@ -72,7 +72,7 @@ public class EntregaAdapter {
         HttpResponse<String> response = apiMelhorEnvioConsumer
                 .consultarDadosMelhorEnvio(criarBodyParaRequest(entregaEntity));
 
-        entregaEntity.setDadosEntrega(filtrarResponse(response));
+        entregaEntity.setDadosEntrega(filtrarResponse(response, entregaEntity));
 
         return entregaEntity;
 
@@ -105,7 +105,7 @@ public class EntregaAdapter {
 
     }
 
-    private DadosEntregaEntity filtrarResponse(HttpResponse<String> response) {
+    private DadosEntregaEntity filtrarResponse(HttpResponse<String> response, EntregaEntity entregaEntity) {
 
         Gson gson = new Gson();
 
@@ -122,6 +122,7 @@ public class EntregaAdapter {
                 dadosEntrega.setModalidade(dados[1].getName());
                 dadosEntrega.setPreco(precoConvertido);
                 dadosEntrega.setPrazo(String.valueOf(dados[1].getDelivery_time()));
+                dadosEntrega.setEntregaEntity(entregaEntity);
             }
 
         }
