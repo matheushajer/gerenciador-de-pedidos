@@ -8,7 +8,6 @@ import br.com.fiap.gerenciadorDepedidos.pedidos.useCases.AtualizarStatusPedidoUs
 import br.com.fiap.gerenciadorDepedidos.pedidos.useCases.CriarPedidoUseCase;
 import br.com.fiap.gerenciadorDepedidos.pedidos.useCases.InserirDadosEntregaUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -44,12 +43,12 @@ public class PedidoController {
      * Recebe o ID do pedido e um DTO com o novo status, retornando o pedido atualizado.
      */
     @PutMapping("/atualizar-status-pedido/{pedidoId}")
-    public ResponseEntity<DadosAtualizacaoStatusPedidoDTO> atualizarStatusPedido(
+    public ResponseEntity<Object> atualizarStatusPedido(
             @PathVariable Long pedidoId,
             @RequestBody @Validated DadosAtualizacaoStatusPedidoDTO dadosAtualizacaoStatusPedidoDTO) {
 
-        DadosAtualizacaoStatusPedidoDTO atualizadoDTO = atualizarStatusPedidoUseCase.atualizarStatus(pedidoId, dadosAtualizacaoStatusPedidoDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(atualizadoDTO);
+        return ResponseEntity.ok().build();
+
     }
 
     /**

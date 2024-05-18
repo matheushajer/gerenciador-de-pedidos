@@ -6,12 +6,7 @@ import jakarta.validation.constraints.NotNull;
 public record DadosAtualizacaoStatusPedidoDTO(
 
         @NotNull(message = "O Status do pedido é obrigatório.")
-        StatusPedido status,
+        StatusPedido status
 
-        @NotNull(message = "O ID do pedido é obrigatório.")
-        Long pedidoId,
-
-        @NotNull(message = "O novo status é obrigatório.")
-        StatusPedido novoStatus
 ) {
 }
