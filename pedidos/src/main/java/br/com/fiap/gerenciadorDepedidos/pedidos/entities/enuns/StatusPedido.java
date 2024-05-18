@@ -22,32 +22,4 @@ public enum StatusPedido {
         return StatusPedido.valueOf(categoria.toUpperCase());
     }
 
-    /**
-     * Verifica se é possível alterar o status atual do pedido para um novo status.
-     *
-     * @param novoStatus O novo status para o qual se deseja mudar.
-     * @return true se a mudança for permitida, false caso contrário.
-     */
-    public boolean statusValido(StatusPedido novoStatus) {
-        switch (this) {
-            case PROCESSANDO:
-                // Permite mudança de PROCESSANDO para PAGO.
-                return novoStatus == StatusPedido.PAGO;
-            case PAGO:
-                // Permite mudança de PAGO para PEDIDO_ENVIADO.
-                return novoStatus == StatusPedido.PEDIDO_ENVIADO;
-            case PEDIDO_ENVIADO:
-                // Permite mudança de PEDIDO_ENVIADO para ENTREGUE.
-                return novoStatus == StatusPedido.ENTREGUE;
-            case ENTREGUE:
-                // O status ENTREGUE é final e não pode ser alterado.
-                return false;
-            case CANCELADO:
-                // O status CANCELADO é final e não pode ser alterado.
-                return false;
-            default:
-                // Qualquer outro status inicial não especifica transições permitidas.
-                return false;
-        }
-    }
 }

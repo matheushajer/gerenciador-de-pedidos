@@ -42,10 +42,12 @@ public class PedidoController {
      * Endpoint para atualizar o status de um pedido existente.
      * Recebe o ID do pedido e um DTO com o novo status, retornando o pedido atualizado.
      */
-    @PutMapping("/atualizar-status-pedido/{pedidoId}")
+    @PatchMapping("/atualizar-status-pedido/{pedidoId}")
     public ResponseEntity<Object> atualizarStatusPedido(
             @PathVariable Long pedidoId,
             @RequestBody @Validated DadosAtualizacaoStatusPedidoDTO dadosAtualizacaoStatusPedidoDTO) {
+
+        atualizarStatusPedidoUseCase.atualizarStatus(pedidoId, dadosAtualizacaoStatusPedidoDTO);
 
         return ResponseEntity.ok().build();
 
