@@ -552,7 +552,6 @@ Para facilitar a execução basta ir até https://github.com/matheushajer/gerenc
 ``` 
 docker-compose up 
 
-OBS: Mais informações em: https://docs.docker.com/compose/
 ```
 
 OBS: Mais informações em: https://docs.docker.com/compose/
