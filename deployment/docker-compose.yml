@@ -23,7 +23,6 @@ services:
   gateway:
     image: yuriesena/gerenciador-de-pedidos:gateway
     ports:
-      - "8083:8081"
       - "8082:8082"
     depends_on:
       - server
@@ -38,8 +37,6 @@ services:
       - gateway
     networks:
       - gerenciador_de_pedidos_net
-    ports:
-      - "8084:8081"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/entregas
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8081/eureka
@@ -50,8 +47,6 @@ services:
       - gateway
     networks:
       - gerenciador_de_pedidos_net
-    ports:
-      - "8085:8081"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/clientes
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8081/eureka
@@ -62,8 +57,6 @@ services:
       - clientes
     networks:
       - gerenciador_de_pedidos_net
-    ports:
-      - "8086:8081"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/produtos
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8081/eureka
@@ -71,11 +64,9 @@ services:
   pedidos:
     image: yuriesena/gerenciador-de-pedidos:pedidos
     depends_on:
-      - clientes
+      - gateway
     networks:
       - gerenciador_de_pedidos_net
-    ports:
-      - "8087:8081"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/pedidos
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8081/eureka

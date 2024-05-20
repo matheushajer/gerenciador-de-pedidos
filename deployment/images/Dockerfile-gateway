@@ -11,9 +11,9 @@ RUN mvn clean package -DskipTests
 RUN cp target/*.jar /app
 
 
-# Expoe a porta 8081 e 8082
-EXPOSE 8081
+# Expoe a porta 8082
 EXPOSE 8082
+
 WORKDIR /app
 
 # Define o comando para iniciar a API

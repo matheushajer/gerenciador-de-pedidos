@@ -13,9 +13,9 @@ RUN mvn clean package -DskipTests
 RUN cp target/*.jar /app
 
 
-# Expoe a porta 8081
-EXPOSE 8081
 WORKDIR /app
 
 # Define o comando para iniciar a API
 CMD java -jar $(ls | grep .jar)
+
+
