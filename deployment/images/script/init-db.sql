@@ -1,6 +1,5 @@
 CREATE DATABASE clientes;
 CREATE DATABASE entregas;
-CREATE DATABASE pagamentos;
 CREATE DATABASE pedidos;
 CREATE DATABASE produtos;
 

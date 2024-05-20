@@ -1,0 +1,81 @@
+version: "3.8"
+
+networks:
+  gerenciador_de_pedidos_net:
+
+services:
+  postgres:
+    image: yuriesena/gerenciador-de-pedidos:postgres
+    ports:
+      - "5433:5433"
+    networks:
+      - gerenciador_de_pedidos_net
+
+  server:
+    image: yuriesena/gerenciador-de-pedidos:server
+    depends_on:
+      - postgres
+    networks:
+      - gerenciador_de_pedidos_net
+    ports:
+      - "8081:8081"
+
+  gateway:
+    image: yuriesena/gerenciador-de-pedidos:gateway
+    ports:
+      - "8083:8081"
+      - "8082:8082"
+    depends_on:
+      - server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8081/eureka
+    networks:
+      - gerenciador_de_pedidos_net
+
+  entrega:
+    image: yuriesena/gerenciador-de-pedidos:entrega
+    depends_on:
+      - gateway
+    networks:
+      - gerenciador_de_pedidos_net
+    ports:
+      - "8084:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/entregas
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8081/eureka
+
+  clientes:
+    image: yuriesena/gerenciador-de-pedidos:clientes
+    depends_on:
+      - gateway
+    networks:
+      - gerenciador_de_pedidos_net
+    ports:
+      - "8085:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/clientes
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8081/eureka
+
+  produtos:
+    image: yuriesena/gerenciador-de-pedidos:produtos
+    depends_on:
+      - clientes
+    networks:
+      - gerenciador_de_pedidos_net
+    ports:
+      - "8086:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/produtos
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8081/eureka
+
+  pedidos:
+    image: yuriesena/gerenciador-de-pedidos:pedidos
+    depends_on:
+      - clientes
+    networks:
+      - gerenciador_de_pedidos_net
+    ports:
+      - "8087:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/pedidos
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8081/eureka
